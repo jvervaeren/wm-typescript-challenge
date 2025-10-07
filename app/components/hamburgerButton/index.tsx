@@ -1,15 +1,22 @@
-export const HamburgerButton = () => {
+interface HamburgerButtonProps {
+  isOpen: boolean
+  onClick: () => void
+}
+
+export const HamburgerButton = ({ isOpen, onClick }: HamburgerButtonProps) => {
   return (
     <button
       data-collapse-toggle="mobile-menu"
       type="button"
       className="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:ring-2 hover:ring-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       aria-controls="mobile-menu"
-      aria-expanded="false"
+      aria-expanded={isOpen ? "true" : "false"}
+      aria-label={isOpen ? "Close main menu" : "Open main menu"}
+      onClick={onClick}
     >
-      <span className="sr-only">Open main menu</span>
+      <span className="sr-only">{isOpen ? "Close main menu" : "Open main menu"}</span>
       <svg
-        className="size-6"
+        className={`${isOpen ? "hidden" : "block"} size-6`}
         fill="white"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +28,7 @@ export const HamburgerButton = () => {
         />
       </svg>
       <svg
-        className="hidden size-6"
+        className={`${isOpen ? "block" : "hidden"} size-6`}
         fill="white"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"

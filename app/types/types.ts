@@ -1,3 +1,5 @@
+type NonEmptyStringArray = [string, ...string[]];
+
 type Cocktail = {
   name: string;
   glass: string;

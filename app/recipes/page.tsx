@@ -1,9 +1,9 @@
-import { CocktailList } from "../components/cocktailList";
+import { AllCocktails } from "../components/allCocktails"
 
 export default function RecipePage() {
   return (
     <main>
-      <CocktailList />
+      <AllCocktails />
     </main>
   );
 }

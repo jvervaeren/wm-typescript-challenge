@@ -1,16 +1,5 @@
-type NonEmptyStringArray = [string, ...string[]];
+import * as z from "zod"
+import { CocktailApiResponseSchema, CocktailSchema } from '../schemas/cocktailApi'
 
-type Cocktail = {
-  name: string;
-  glass: string;
-  category: string;
-  ingredients: Ingredient[];
-  garnish: string;
-  preparation: string;
-};
-
-type Ingredient = {
-  unit: string;
-  amount: number;
-  ingredient: string;
-};
+export type Cocktail = z.infer<typeof CocktailSchema>
+export type CocktailApiResponse = z.infer<typeof CocktailApiResponseSchema>

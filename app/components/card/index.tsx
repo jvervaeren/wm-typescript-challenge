@@ -1,7 +1,7 @@
 interface CardProps {
   name: string
   type: string
-  ingredients: NonEmptyStringArray
+  ingredients: string[]
   preparation: string
 }
 

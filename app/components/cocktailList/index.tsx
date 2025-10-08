@@ -1,32 +1,30 @@
 'use client'
 import useSWR from 'swr'
+import { Cocktail, CocktailApiResponse } from '@/app/types/types'
+import { CocktailSchema } from '@/app/schemas/cocktailApi'
 import { Card } from '../card'
 
 const fetchCocktails = (url: string) => fetch(url)
 	.then(resp => resp.json())
-	.then((cocktails: any[]) => {
-		return cocktails.map(c => {
-			return {
-				name: c.name,
-				type: c.category,
-				ingredients: c.ingredients.map((ing: any) => {
-					if (ing.special) return ing.special
-					return `${ing.amount} ${ing.unit} ${ing.ingredient}`
-				}),
-				preparation: c.preparation
+	.then((cocktails: CocktailApiResponse[]) => {
+		return cocktails.reduce((parsedCocktails, data) => {
+			const parsedCocktail = CocktailSchema.safeParse(data)
+			if (!parsedCocktail.success) {
+				return parsedCocktails
 			}
-		})
+
+			return [
+				...parsedCocktails,
+				parsedCocktail.data
+			]
+		}, [] as Cocktail[])
 	})
 
-interface cProps { }
-
-export const CocktailList = ({ }: cProps) => {
-	const { data, isLoading } = useSWR("http://localhost:3000/api/cocktails", fetchCocktails, {
-		suspense: true,
-		fallbackData: []
-	})
+export const CocktailList = () => {
+	const { data, isLoading } = useSWR("http://localhost:3000/api/cocktails", fetchCocktails)
 
 	if (isLoading) return "Loading..."
+	if (!data) return "No data"
 
 	return (
 		<ul>
@@ -34,7 +32,7 @@ export const CocktailList = ({ }: cProps) => {
 				<li key={idx}>
 					<Card
 						name={c.name}
-						type={c.type}
+						type={c.category}
 						ingredients={c.ingredients}
 						preparation={c.preparation}
 					/>

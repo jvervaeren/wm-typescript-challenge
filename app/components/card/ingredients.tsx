@@ -14,7 +14,7 @@ export const Ingredients = ({ ingredients }: IngredientsProps) => {
 		setListTabbable(uListRef.current.scrollHeight > uListRef.current.clientHeight)
 	}, [])
 
-	const ingredientList = ingredients.map(ingredient => <li><span className="text-base text-gray-900">{ingredient}</span></li>)
+	const ingredientList = ingredients.map((ingredient, idx) => <li key={idx}><span className="text-base text-gray-900">{ingredient}</span></li>)
 
 	return (
 		<div className="pb-4">

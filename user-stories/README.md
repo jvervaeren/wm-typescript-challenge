@@ -12,7 +12,7 @@ WCA is short for Wieni Cocktail Application
 :white_check_mark:[WCA-002](./not-found.md) Not found page<br>
 :white_check_mark:[WCA-003](./popular.md) Popular cocktails<br>
 :white_check_mark:[WCA-004](./props.md) Card props<br>
-:x:[WCA-005](./responsive-grid.md) Responsive Grid layout<br>
+:white_check_mark:[WCA-005](./responsive-grid.md) Responsive Grid layout<br>
 :x:[WCA-006](./search.md) Search bar<br>
 :white_check_mark:[WCA-007](./server-side-fetch.md) Fetch data<br>
 :white_check_mark:[WCA-008](./types.md) Fetched data typing<br>

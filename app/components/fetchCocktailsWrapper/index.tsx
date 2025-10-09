@@ -31,17 +31,19 @@ export const FetchCocktailsWrapper = ({ endpoint }: FetchCocktailsWrapperProps) 
 	if (!data) return "No data"
 
 	return (
-		<ul>
+		<>
 			{data.map((c, idx) =>
-				<li key={idx}>
-					<Card
-						name={c.name}
-						type={c.category}
-						ingredients={c.ingredients}
-						preparation={c.preparation}
-					/>
-				</li>
+				<div>
+					<li key={idx}>
+						<Card
+							name={c.name}
+							type={c.category}
+							ingredients={c.ingredients}
+							preparation={c.preparation}
+						/>
+					</li>
+				</div>
 			)}
-		</ul>
+		</>
 	)
 }

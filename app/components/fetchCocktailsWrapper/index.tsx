@@ -4,8 +4,9 @@ import { Cocktail, CocktailApiResponse } from '@/app/types/types'
 import { CocktailSchema } from '@/app/schemas/cocktailApi'
 import { Card } from '../card'
 
-interface FetchCocktailsWrapperProps {
+type FetchCocktailsWrapperProps = {
 	endpoint: string
+	loadingSkeleton: React.ReactNode
 }
 
 const fetchAndParseCocktails = (url: string) => fetch(url)
@@ -24,10 +25,10 @@ const fetchAndParseCocktails = (url: string) => fetch(url)
 		}, [] as Cocktail[])
 	})
 
-export const FetchCocktailsWrapper = ({ endpoint }: FetchCocktailsWrapperProps) => {
+export const FetchCocktailsWrapper = ({ endpoint, loadingSkeleton }: FetchCocktailsWrapperProps) => {
 	const { data, isLoading } = useSWR(`http://localhost:3000/api${endpoint}`, fetchAndParseCocktails)
 
-	if (isLoading) return "Loading..."
+	if (isLoading) return loadingSkeleton
 	if (!data) return "No data"
 
 	return (

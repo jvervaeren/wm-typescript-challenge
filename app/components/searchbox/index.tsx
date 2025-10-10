@@ -10,6 +10,7 @@ export const Searchbox = ({ onSearchButtonClick }: SearchboxProps) => {
 
 	const handleSearch = () => {
 		inputRef.current?.focus()
+		inputRef.current?.select()
 		onSearchButtonClick(inputRef.current?.value ?? "")
 	}
 

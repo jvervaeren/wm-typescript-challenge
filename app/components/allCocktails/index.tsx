@@ -1,12 +1,17 @@
 import { FetchCocktailsWrapper } from '../fetchCocktailsWrapper'
 import { SkeletonCard } from '../skeletonCard'
 
-export const AllCocktails = () => {
+interface AllCocktailsProps {
+	searchQuery?: string
+}
+
+export const AllCocktails = ({ searchQuery }: AllCocktailsProps) => {
+	const query = searchQuery ? `?q=${searchQuery}` : ''
 	const skeletonLoader = [...Array(8)].map((_, idx) => <li key={idx}><SkeletonCard /></li>)
 
 	return (
 		<FetchCocktailsWrapper
-			endpoint="/cocktails"
+			endpoint={`/cocktails${query}`}
 			loadingSkeleton={skeletonLoader}
 		/>
 	)

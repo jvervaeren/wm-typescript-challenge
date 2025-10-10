@@ -1,4 +1,13 @@
-export const Searchbox = () => {
+'use client'
+import { useState } from "react"
+
+interface SearchboxProps {
+	onSearchButtonClick?: (text: string) => void
+}
+
+export const Searchbox = ({ onSearchButtonClick }: SearchboxProps) => {
+	const [searchText, setSearchText] = useState("")
+
 	return (
 		<div className="flex flex-row items-center">
 			<label
@@ -7,8 +16,19 @@ export const Searchbox = () => {
 			>
 				Search:&nbsp;
 			</label>
-			<input id="search-cocktails" name="search-cocktails" className="border border-gray-400 rounded-l-md text-gray-900 w-full md:w-auto min-w-[256px] min-h-12 max-h-12 px-2" type="search" placeholder="" />
-			<button className="relative bg-white text-gray-900 border border-l-0 border-gray-400 rounded-r-md min-w-12 max-w12 min-h-12 max-h-12" type="button">
+			<input
+				className="border border-gray-400 rounded-l-md text-gray-900 w-full md:w-auto min-w-[256px] min-h-12 max-h-12 px-2"
+				id="search-cocktails"
+				name="search-cocktails"
+				type="search"
+				placeholder=""
+				onChange={(el) => setSearchText(el.target.value)}
+			/>
+			<button
+				className="relative bg-white text-gray-900 border border-l-0 border-gray-400 rounded-r-md min-w-12 max-w12 min-h-12 max-h-12"
+				type="button"
+				onClick={onSearchButtonClick ? () => onSearchButtonClick(searchText) : undefined}
+			>
 				<svg
 					className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]"
 					width="27"

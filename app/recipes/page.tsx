@@ -70,10 +70,16 @@ export default function RecipePage() {
         >
           <Searchbox
             inputRef={searchInputRef}
+            id="cocktail-search"
             onSearchInputChange={handleSuggestionsQuery}
             onSearchButtonClick={handleSearch}
           />
-          {showSuggestions && <SearchSuggestions suggestionsQuery={suggestionsQuery} onSuggestionClick={handleSuggestionClick} />}
+          {showSuggestions && <SearchSuggestions
+            suggestionsQuery={suggestionsQuery}
+            onSuggestionClick={handleSuggestionClick}
+            controlledBy="cocktail-search"
+            isShown={showSuggestions}
+          />}
         </div>
       </div>
 

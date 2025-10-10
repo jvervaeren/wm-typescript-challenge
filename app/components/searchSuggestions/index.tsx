@@ -1,4 +1,3 @@
-import { KeyboardEventHandler } from "react"
 import useSWR from "swr"
 
 const fetchSuggestions = (url: string) => fetch(url)
@@ -9,9 +8,11 @@ const accessibilityStyles = "cursor-pointer focus:bg-white focus:text-gray-900 f
 interface SearchSuggestionsProps {
   suggestionsQuery?: string
   onSuggestionClick: (value: string) => void
+  controlledBy?: string
+  isShown?: boolean
 }
 
-export const SearchSuggestions = ({ suggestionsQuery, onSuggestionClick }: SearchSuggestionsProps) => {
+export const SearchSuggestions = ({ suggestionsQuery, onSuggestionClick, controlledBy, isShown }: SearchSuggestionsProps) => {
   const { data, isLoading } = useSWR(`http://localhost:3000/api/cocktails/suggestions?q=${suggestionsQuery}`, fetchSuggestions)
 
   const handleKeyUp = (key: string, suggestion: string) => {
@@ -26,12 +27,18 @@ export const SearchSuggestions = ({ suggestionsQuery, onSuggestionClick }: Searc
   return (
     <ul
       className="bg-gray-900 absolute top-full left-0 w-full divide-y divide-gray-400 border border-t-0 border-gray-400 rounded-b-md"
+      role="listbox"
+      aria-labelledby={controlledBy}
+      aria-expanded={isShown ? "true" : "false"}
     >
       {data.map((suggestion, idx) => {
         return (
           <li
             className={`text-base text-gray-50 p-2 underline underline-offset-2 decoration-gray-50 ${accessibilityStyles}`}
             key={idx}
+            role="option"
+            aria-posinset={idx + 1}
+            aria-setsize={data.length}
             tabIndex={0}
             onKeyUp={(ev) => handleKeyUp(ev.key, suggestion)}
             onClick={() => onSuggestionClick(suggestion)}

@@ -1,10 +1,10 @@
-interface SearchboxProps {
+type SearchboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
 	inputRef: React.RefObject<HTMLInputElement>
 	onSearchInputChange: (text: string) => void
 	onSearchButtonClick: (text: string) => void
 }
 
-export const Searchbox = ({ inputRef, onSearchInputChange, onSearchButtonClick }: SearchboxProps) => {
+export const Searchbox = ({ inputRef, id, onSearchInputChange, onSearchButtonClick }: SearchboxProps) => {
 	const handleSearch = () => {
 		inputRef.current?.focus()
 		inputRef.current?.select()
@@ -15,7 +15,7 @@ export const Searchbox = ({ inputRef, onSearchInputChange, onSearchButtonClick }
 		<div className="flex flex-col">
 			<label
 				className="text-gray-900 font-medium pb-2 pr-2"
-				htmlFor="search-cocktails"
+				htmlFor={id}
 			>
 				Search:&nbsp;
 				<span className="sr-only">Search cocktails</span>
@@ -24,7 +24,8 @@ export const Searchbox = ({ inputRef, onSearchInputChange, onSearchButtonClick }
 				<input
 					ref={inputRef}
 					className="border border-gray-400 rounded-tl-md text-gray-900 w-full md:w-auto min-w-[226px] min-h-12 max-h-12 px-2"
-					id="search-cocktails"
+					role="combobox"
+					id={id}
 					name="search-cocktails"
 					type="search"
 					onChange={(ev) => onSearchInputChange(ev.target.value)}

@@ -1,12 +1,17 @@
 'use client'
-import { useState } from "react"
+import { useRef } from "react"
 
 interface SearchboxProps {
-	onSearchButtonClick?: (text: string) => void
+	onSearchButtonClick: (text: string) => void
 }
 
 export const Searchbox = ({ onSearchButtonClick }: SearchboxProps) => {
-	const [searchText, setSearchText] = useState("")
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	const handleSearch = () => {
+		inputRef.current?.focus()
+		onSearchButtonClick(inputRef.current?.value ?? "")
+	}
 
 	return (
 		<div className="flex flex-row items-center">
@@ -17,17 +22,16 @@ export const Searchbox = ({ onSearchButtonClick }: SearchboxProps) => {
 				Search:&nbsp;
 			</label>
 			<input
+				ref={inputRef}
 				className="border border-gray-400 rounded-l-md text-gray-900 w-full md:w-auto min-w-[256px] min-h-12 max-h-12 px-2"
 				id="search-cocktails"
 				name="search-cocktails"
 				type="search"
-				placeholder=""
-				onChange={(el) => setSearchText(el.target.value)}
 			/>
 			<button
 				className="relative bg-white text-gray-900 border border-l-0 border-gray-400 rounded-r-md min-w-12 max-w12 min-h-12 max-h-12"
 				type="button"
-				onClick={onSearchButtonClick ? () => onSearchButtonClick(searchText) : undefined}
+				onClick={() => handleSearch()}
 			>
 				<svg
 					className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]"
